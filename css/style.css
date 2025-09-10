@@ -1,0 +1,26 @@
+body {
+  background-color: #111;
+  color: #fff;
+  font-family: sans-serif;
+}
+header nav {
+  background: red;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+.container {
+  padding: 20px;
+}
+.btn {
+  background-color: red;
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  text-decoration: none;
+}
+
