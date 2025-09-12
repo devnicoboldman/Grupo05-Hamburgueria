@@ -14,21 +14,21 @@
   <header>
 
     <nav class="navbar">
-      <div class="logo">
-      <a href="index.php">
-        <img src="img/LOGOATUAL.png" alt="Rock n' Burguer" height="80">
-      </a>
-    </div>
+          <div class="logo">
+          <a href="index.php">
+            <img src="img/LOGOATUAL.png" alt="Rock n' Burguer" height="80">
+          </a>
+        </div>
 
-    <div class="menu">
-      <a href="index.php">Ínicio</a>
-      <a href="cardapio.php">Cardápio</a>
-      <a href="carrinho.php">Meu carrinho</a>
-      <?php if (isset($_SESSION['usuario'])): ?>
-        <span>Olá, <?= $_SESSION['usuario']['nome']; ?></span>
-      <?php else: ?>
-        <a href="login.php">Login</a>
-      <?php endif; ?>
-    </div>
+        <div class="menu">
+          <a href="index.php">Ínicio</a>
+          <a href="cardapio.php">Cardápio</a>
+          <a href="carrinho.php">Meu carrinho</a>
+          <?php if (isset($_SESSION['usuario'])): ?>
+            <span>Olá, <?= $_SESSION['usuario']['nome']; ?></span>
+          <?php else: ?>
+            <a href="login.php">Login</a>
+          <?php endif; ?>
+        </div>
     </nav>
   </header>

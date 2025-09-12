@@ -1,9 +1,11 @@
 html, body {
-  margin: 0;
-  padding: 0;
   width: 100%;
   max-width: 100vw;  /* impede ultrapassar a largura da viewport */
   overflow-x: hidden; /* remove a barra de rolagem horizontal */
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
 }
 
 body {
@@ -21,6 +23,7 @@ body {
   align-items: center;
   padding: 20px;
   height: 70px;
+  max-width: 1440px;
 }
 
 .logo a {
