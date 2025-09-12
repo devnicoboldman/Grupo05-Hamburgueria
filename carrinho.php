@@ -1,155 +1,126 @@
 <?php
 session_start();
 
-// Simulação de login
-$usuario_logado = isset($_SESSION['usuario']); // true se estiver logado
+// Simulação: descomente para testar login
+// $_SESSION['usuario'] = "Cliente Teste";
 
-// Produtos disponíveis (imagem, preço)
-$produtos = [
-    "Clássico do Rock" => ["img/classicodorock.jpeg", 35],
-    "Solo Apimentado" => ["img/soloapimentado.jpeg", 39],
-    "Batida Vegana" => ["img/batidavegana.jpeg", 38],
-];
-
-// Inicializa carrinho de exemplo com 3 itens
-if(!isset($_SESSION['carrinho'])){
-    $_SESSION['carrinho'] = [
-        "Clássico do Rock" => 1,
-        "Solo Apimentado" => 2,
-        "Batida Vegana" => 1,
-    ];
-}
-
-// Atualizar quantidades
-if(isset($_POST['acao'])){
-    $acao = $_POST['acao'];
-    $item = $_POST['item'];
-
-    if($acao == "aumentar"){
-        $_SESSION['carrinho'][$item]++;
-    } elseif($acao == "diminuir"){
-        if($_SESSION['carrinho'][$item] > 1){
-            $_SESSION['carrinho'][$item]--;
-        } else {
-            unset($_SESSION['carrinho'][$item]);
-        }
-    } elseif($acao == "remover"){
-        unset($_SESSION['carrinho'][$item]);
-    }
-}
-
-// Aplicar cupom
-$desconto = 0;
-$mensagem_cupom = "";
-if(isset($_POST['aplicar_cupom'])){
-    $cupom = strtoupper(trim($_POST['cupom']));
-    // Exemplo: cupom DESCONTO10 aplica 10% de desconto
-    if($cupom == "DESCONTO10"){
-        $desconto = 0.10;
-        $mensagem_cupom = "Cupom aplicado! 10% de desconto.";
-    } else {
-        $mensagem_cupom = "Cupom inválido.";
-    }
-}
-
-// Calcular valores
-$subtotal = 0;
-foreach($_SESSION['carrinho'] as $item => $qtd){
-    $subtotal += $produtos[$item][1] * $qtd;
-}
-$valor_desconto = $subtotal * $desconto;
-$total = $subtotal - $valor_desconto;
+$logado = isset($_SESSION['usuario']);
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carrinho</title>
-<style>
-body {background:#000; color:#fff; font-family:Arial,sans-serif; margin:0; padding:0;}
-header{background:#c00; padding:15px; text-align:center;}
-header a{color:#fff; margin:0 20px; text-decoration:none; font-weight:bold;}
-.container{max-width:1000px; margin:40px auto; padding:20px;}
-h1{color:#c00;}
-.carrinho-item{display:flex; align-items:center; background:#111; margin-bottom:15px; padding:10px; border-radius:10px;}
-.carrinho-item img{width:80px; height:80px; object-fit:contain; margin-right:15px;}
-.carrinho-info{flex:1;}
-.carrinho-info h3{margin:0 0 5px 0; color:#fff;}
-.carrinho-info span{color:#c00; font-weight:bold;}
-.carrinho-acoes button{margin-right:5px; padding:5px 10px; cursor:pointer; border-radius:5px; border:none; background:#c00; color:#fff; font-weight:bold;}
-.resumo{background:#111; padding:15px; border-radius:10px; margin-top:20px;}
-input[type=text]{padding:5px; width:150px; margin-right:5px;}
-button#continuar{background:#0a0; width:100%; padding:10px; border:none; border-radius:10px; font-weight:bold; color:#fff; margin-top:10px; cursor:pointer;}
-.mensagem{color:#0f0; margin-top:10px;}
-.alerta{color:#f00; margin-top:10px;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrinho</title>
+  <style>
+    body{background:#000;color:#fff;font-family:Arial;margin:0;padding:0;}
+    header{background:#c00;padding:15px;text-align:center;}
+    header a{color:#fff;margin:0 15px;text-decoration:none;font-weight:bold;}
+    h1{color:#c00;text-align:center;margin-top:20px;}
+    .container{max-width:800px;margin:20px auto;padding:20px;}
+    table{width:100%;border-collapse:collapse;margin-bottom:20px;}
+    th,td{border:1px solid #333;padding:10px;text-align:center;}
+    button{padding:5px 10px;border:none;border-radius:5px;cursor:pointer;font-weight:bold;}
+    .remover{background:#900;color:#fff;}
+    .mais{background:#090;color:#fff;}
+    .menos{background:#f90;color:#000;}
+    .resumo{margin-top:20px;font-size:18px;}
+    .cupom{margin:15px 0;}
+    .cupom input{padding:6px;width:70%;border:none;border-radius:5px;}
+    .cupom button{background:#c00;color:#fff;padding:6px 10px;}
+  </style>
 </head>
 <body>
 <header>
-<a href="index.php">LOGIN</a>
-<a href="cardapio.php">CARDÁPIO</a>
-<a href="carrinho.php">MEU CARRINHO</a>
+  <a href="index.php"><?php echo $logado ? "SAIR" : "LOGIN"; ?></a>
+  <a href="cardapio.php">CARDÁPIO</a>
+  <a href="carrinho.php">MEU CARRINHO</a>
+  <?php if($logado): ?>
+    <a href="perfil.php">MEU PERFIL</a>
+  <?php endif; ?>
 </header>
 
 <div class="container">
-<h1>Meu Carrinho</h1>
+  <h1>Seu Carrinho</h1>
+  <table id="tabela">
+    <thead>
+      <tr>
+        <th>Produto</th><th>Preço</th><th>Qtd</th><th>Total</th><th>Ações</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
-<?php if(empty($_SESSION['carrinho'])): ?>
-<p>Seu carrinho está vazio.</p>
-<?php else: ?>
-    <?php foreach($_SESSION['carrinho'] as $item => $qtd): ?>
-    <div class="carrinho-item">
-        <img src="<?php echo $produtos[$item][0]; ?>" alt="<?php echo $item; ?>">
-        <div class="carrinho-info">
-            <h3><?php echo $item; ?></h3>
-            <span>R$ <?php echo number_format($produtos[$item][1]*$qtd,2,",","."); ?></span> - <?php echo $qtd; ?> unidade(s)
-        </div>
-        <div class="carrinho-acoes">
-            <form method="POST" style="display:inline;">
-                <input type="hidden" name="item" value="<?php echo $item; ?>">
-                <button type="submit" name="acao" value="aumentar">+</button>
-                <button type="submit" name="acao" value="diminuir">-</button>
-                <button type="submit" name="acao" value="remover">X</button>
-            </form>
-        </div>
-    </div>
-    <?php endforeach; ?>
+  <div class="cupom">
+    <input type="text" id="cupom" placeholder="Digite um cupom">
+    <button onclick="aplicarCupom()">Aplicar Cupom</button>
+  </div>
 
-    <a href="cardapio.php"><button style="margin-top:10px;">Adicionar mais itens</button></a>
+  <div class="resumo">
+    <p id="subtotal"></p>
+    <p id="desconto"></p>
+    <p id="total"></p>
+  </div>
 
-    <!-- Cupom -->
-    <div style="margin-top:15px;">
-        <form method="POST">
-            <input type="text" name="cupom" placeholder="Código do cupom">
-            <button type="submit" name="aplicar_cupom">Aplicar</button>
-        </form>
-        <?php if($mensagem_cupom): ?>
-            <div class="mensagem"><?php echo $mensagem_cupom; ?></div>
-        <?php endif; ?>
-    </div>
-
-    <!-- Resumo -->
-    <div class="resumo">
-        <p>Subtotal: R$ <?php echo number_format($subtotal,2,",","."); ?></p>
-        <p>Desconto: R$ <?php echo number_format($valor_desconto,2,",","."); ?></p>
-        <p><strong>Total: R$ <?php echo number_format($total,2,",","."); ?></strong></p>
-    </div>
-
-    <!-- Continuar -->
-    <?php if($usuario_logado): ?>
-        <form action="pedido.php">
-            <button id="continuar">Continuar para Pedido</button>
-        </form>
-    <?php else: ?>
-        <div class="alerta">
-            Você precisa se cadastrar para continuar. <a href="cadastro.php" style="color:#0f0;">Clique aqui para se cadastrar</a>
-        </div>
-    <?php endif; ?>
-<?php endif; ?>
-
+  <button onclick="continuar()">Continuar para pedidos</button>
 </div>
+
+<script>
+let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+let descontoValor = 0;
+
+function render(){
+  let tbody=document.querySelector('#tabela tbody');
+  tbody.innerHTML='';
+  let subtotal=0;
+  carrinho.forEach((item,i)=>{
+    let total=item.preco*item.qtd;
+    subtotal+=total;
+    tbody.innerHTML+=`
+      <tr>
+        <td>${item.nome}</td>
+        <td>R$ ${item.preco.toFixed(2)}</td>
+        <td>${item.qtd}</td>
+        <td>R$ ${total.toFixed(2)}</td>
+        <td>
+          <button class="mais" onclick="mudarQtd(${i},1)">+</button>
+          <button class="menos" onclick="mudarQtd(${i},-1)">-</button>
+          <button class="remover" onclick="remover(${i})">Excluir</button>
+        </td>
+      </tr>
+    `;
+  });
+  document.getElementById('subtotal').innerText='Subtotal: R$ '+subtotal.toFixed(2);
+  document.getElementById('desconto').innerText='Desconto: R$ '+descontoValor.toFixed(2);
+  document.getElementById('total').innerText='Total: R$ '+(subtotal-descontoValor).toFixed(2);
+}
+function mudarQtd(i,valor){
+  carrinho[i].qtd+=valor;
+  if(carrinho[i].qtd<=0) carrinho.splice(i,1);
+  salvar();
+}
+function remover(i){carrinho.splice(i,1);salvar();}
+function salvar(){
+  localStorage.setItem('carrinho',JSON.stringify(carrinho));
+  render();
+}
+function aplicarCupom(){
+  let cup=document.getElementById('cupom').value.trim().toLowerCase();
+  if(cup==='desconto10'){descontoValor=10;alert('Cupom aplicado!');}else{descontoValor=0;alert('Cupom inválido!');}
+  render();
+}
+function continuar(){
+  let logado = <?php echo json_encode($logado); ?>;
+  if(!logado){
+    alert('Você precisa estar logado! Vamos para a página de login...');
+    window.location='index.php';
+  } else {
+    window.location='pedidos.php';
+  }
+}
+render();
+</script>
 </body>
 </html>
+
 
