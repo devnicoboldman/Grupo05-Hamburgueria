@@ -127,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
   <footer>
-    <p>© 2025 Sua Hamburgueria</p>
+    <p>© 2025 Rock N Burguer</p>
   </footer>
 </body>
 </html>

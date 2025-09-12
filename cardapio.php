@@ -104,23 +104,30 @@
       <h2>Mais pedidos</h2>
       <div class="card-grid">
         <div class="card">
-          <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Hamburguer">
+          <img src="img/classicodorock.jpeg" alt="Clássico do Rock">
           <h3>Clássico do Rock</h3>
           <p>Pão com gergelim, alface, queijo, tomate e hambúrguer suculento.</p>
           <span>R$ 35,00</span>
           <button>Adicionar</button>
         </div>
         <div class="card">
-          <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Hamburguer">
-          <h3>São Apimentado</h3>
+          <img src="img/soloapimentado.jpeg" alt="Solo Apimentado">
+          <h3>Solo Apimentado</h3>
           <p>Hambúrguer com cheddar, jalapeños e toque de pimenta especial.</p>
           <span>R$ 39,00</span>
           <button>Adicionar</button>
         </div>
         <div class="card">
-          <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Hamburguer">
-          <h3>Vegan Burger</h3>
+          <img src="img/batidavegana.jpeg" alt="Batida Vegana">
+          <h3>Batida Vegana</h3>
           <p>Hambúrguer vegetal com alface, tomate e pão brioche.</p>
+          <span>R$ 38,00</span>
+          <button>Adicionar</button>
+        </div>
+        <div class="card">
+          <img src="img/bacondistortion.jpeg" alt="Bacon Distortion">
+          <h3>Bacon Distortion</h3>
+          <p>Bacon distortion- Hambúrguer com queijo, alface e tiras crocantes de bacon..</p>
           <span>R$ 38,00</span>
           <button>Adicionar</button>
         </div>
@@ -132,40 +139,58 @@
       <h2>Combos</h2>
       <div class="card-grid">
         <div class="card">
-          <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Combo">
+          <img src="img/comboapimentado.png" alt="Combo Apimentado">
           <h3>Combo Apimentado</h3>
-          <p>Hambúrguer apimentado, batata frita e refrigerante 500ml.</p>
+          <p>Combo solo apimentado- Hambúrguer com cheddar derretido,
+          frescos, alface crocante e pão com gergelim + Batata Frita Media e 1 refrigerante 500ml.</p>
           <span>R$ 55,00</span>
           <button>Adicionar</button>
         </div>
         <div class="card">
-          <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Combo">
-          <h3>Combo Clássico</h3>
-          <p>Hambúrguer clássico, batata frita e refrigerante 500ml.</p>
+          <img src="img/comboclassico.jpeg" alt="Combo Classico do Rock">
+          <h3>Combo Clássico do Rock</h3>
+          <p> Combo clássico do rock- Hambúrguer tradiional com queijo, tomate,
+          alface e pão brioche + refrigerante 500ml.</p>
           <span>R$ 50,00</span>
+          <button>Adicionar</button>
+        </div>
+        <div class="card">
+          <img src="img/combobacon.png" alt="Combo Bacon Distortion">
+          <h3>Combo Bacon Distortion</h3>
+          <p> Combo Bacon Distortion- Hambúrguer com queijo, alface e tiras crocantes de bacon
+             + batata frita pequena + refrigerante 500ml.</p>
+          <span>R$ 55,00</span>
+          <button>Adicionar</button>
+        </div>
+        <div class="card">
+          <img src="img/combotradicional.jpeg" alt="Combo Simples">
+          <h3>Combo Simples</h3>
+          <p>Combo simples- Hambúrguer tradicional + batata frita pequena.</p>
+          <span>R$ 55,00</span>
           <button>Adicionar</button>
         </div>
       </div>
     </div>
+
 
     <!-- Acompanhamentos -->
     <div class="categoria">
       <h2>Acompanhamentos</h2>
       <div class="card-grid">
         <div class="card">
-          <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Batata">
+          <img src="img/batata.jpeg" alt="Batata Pequena">
           <h3>Batata Pequena</h3>
           <span>R$ 15,00</span>
           <button>Adicionar</button>
         </div>
         <div class="card">
-          <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Batata">
+          <img src="img/batata.jpeg" alt="Batata Media">
           <h3>Batata Média</h3>
           <span>R$ 20,00</span>
           <button>Adicionar</button>
         </div>
         <div class="card">
-          <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Batata">
+          <img src="img/batata.jpeg" alt="Batata Grande">
           <h3>Batata Grande</h3>
           <span>R$ 25,00</span>
           <button>Adicionar</button>
@@ -178,19 +203,19 @@
       <h2>Bebidas</h2>
       <div class="card-grid">
         <div class="card">
-          <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Coca-Cola">
+          <img src="img/coca.jpeg" alt="Coca-Cola">
           <h3>Coca-Cola 500ml</h3>
           <span>R$ 15,00</span>
           <button>Adicionar</button>
         </div>
         <div class="card">
-          <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Guaraná">
+          <img src="img/guarana.jpeg" alt="Guaraná">
           <h3>Guaraná 500ml</h3>
           <span>R$ 15,00</span>
           <button>Adicionar</button>
         </div>
         <div class="card">
-          <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Água">
+          <img src="img/agua.jpeg" alt="Água">
           <h3>Água 500ml</h3>
           <span>R$ 12,00</span>
           <button>Adicionar</button>
@@ -200,8 +225,8 @@
   </div>
 
   <footer>
-    <p>© 2025 Sua Hamburgueria</p>
-  </footer>
+    <p>© 2025 Rock N Burguer</p>
+  </footer> 
 </body>
 </html>
 
