@@ -1,5 +1,5 @@
 <?php
-//  formulário for enviado, processa os dados
+// ssss formulário for enviado, processa os dados
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST['nome'];
     $email = $_POST['email'];
